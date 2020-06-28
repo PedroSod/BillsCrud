@@ -1,0 +1,18 @@
+spring:
+  mvc:
+    locale: en_US
+  jpa:
+    show-sql: true
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/bill
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    url: jdbc:postgresql://localhost:5432/bill
+    user: postgres
+    password: root
+    schemas: public
+    out-of-order: true
+    locations: classpath:database
