@@ -31,4 +31,5 @@ build/
 .vscode/
 
 ### Custom ###
-mvnw.batch
+mvnw
+mvnw.cmd
