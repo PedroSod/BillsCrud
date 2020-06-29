@@ -1,7 +1,7 @@
 package com.bills.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 import java.util.Collection;

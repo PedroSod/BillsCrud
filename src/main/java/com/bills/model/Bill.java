@@ -31,7 +31,7 @@ public class Bill implements Serializable {
     private Double correctedAmount;
     @NotNull
     @Column(name = "overdue_days")
-    private Integer overDueDays;
+    private Long overDueDays;
     @NotNull
     @Column(name = "payment_date")
     private LocalDate paymentDate;

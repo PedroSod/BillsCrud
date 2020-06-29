@@ -26,7 +26,7 @@ public class BillsInterestRulesServiceTest {
     @InjectMocks
     private BillInterestRulesService billsInterestRulesService;
 
-    private static Integer overDueDays = 1;
+    private static Long overDueDays = 1l;
 
     @Test
     public void findBillsInterestRulesTest() {
@@ -51,8 +51,8 @@ public class BillsInterestRulesServiceTest {
                 .id(1L)
                 .fineBill(2.0)
                 .interestOnDayOverdue(0.1)
-                .underDayLimit(1)
-                .overDayLimit(3)
+                .underDayLimit(1l)
+                .overDayLimit(3l)
                 .build();
     }
 

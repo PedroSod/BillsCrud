@@ -1,9 +1,9 @@
 package com.bills.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @NoArgsConstructor
@@ -14,7 +14,7 @@ public class BillOutputDTO {
     private String name;
     private Double originalAmount;
     private Double correctedAmount;
-    private Integer overDueDays;
+    private Long overDueDays;
     private LocalDate paymentDate;
 
 }

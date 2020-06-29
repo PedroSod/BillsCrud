@@ -2,7 +2,7 @@ create TABLE IF NOT EXISTS bill(
     id bigserial,
     fine_bill decimal,
     name varchar,
-    overdue_days integer,
+    overdue_days bigint,
     original_amount numeric (15, 2),
     corrected_amount  numeric (15, 2),
     payment_date date,

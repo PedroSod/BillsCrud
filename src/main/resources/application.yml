@@ -5,14 +5,14 @@ spring:
     show-sql: true
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5432/bill
+    url: jdbc:postgresql://postgres:5432/bills_to_pay
     username: postgres
-    password: root
+    password: postgres
     driver-class-name: org.postgresql.Driver
   flyway:
-    url: jdbc:postgresql://localhost:5432/bill
+    url: jdbc:postgresql://postgres:5432/bills_to_pay
     user: postgres
-    password: root
+    password: postgres
     schemas: public
     out-of-order: true
     locations: classpath:database

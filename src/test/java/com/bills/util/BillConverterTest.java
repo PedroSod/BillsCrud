@@ -26,7 +26,7 @@ public class BillConverterTest {
 
     private static BillConverter billConverter;
 
-    private final static Integer overDueDays = 1;
+    private final static Long overDueDays = 1l;
 
     private static BillsInterestRules billsInterestRulesMock;
 
@@ -71,8 +71,8 @@ public class BillConverterTest {
                 .id(1L)
                 .fineBill(2.0)
                 .interestOnDayOverdue(0.1)
-                .underDayLimit(1)
-                .overDayLimit(3)
+                .underDayLimit(1l)
+                .overDayLimit(3l)
                 .build();
     }
 }

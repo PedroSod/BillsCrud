@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
@@ -20,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.doNothing;
 
 @ExtendWith(SpringExtension.class)
 public class BillServiceTest {
@@ -75,6 +75,7 @@ public class BillServiceTest {
 
     @Test
     public void deleteSuccessTest() {
+        when(billRepository.existsById(eq(TEST_ID))).thenReturn(true);
         doNothing().when(billRepository).deleteById(eq(TEST_ID));
         billService.delete(TEST_ID);
         verify(billRepository).deleteById(eq(TEST_ID));
@@ -86,7 +87,6 @@ public class BillServiceTest {
         assertThrows(RecordNotFoundException.class, () ->
                         billService.update(TEST_ID, billMock),
                 "No record found for id : " + TEST_ID);
-
     }
 
     @Test
@@ -117,7 +117,7 @@ public class BillServiceTest {
                 .originalAmount(100.00)
                 .dueDate(LocalDate.now().minusDays(2))
                 .paymentDate(LocalDate.now())
-                .overDueDays(1)
+                .overDueDays(1l)
                 .name("test")
                 .build();
     }

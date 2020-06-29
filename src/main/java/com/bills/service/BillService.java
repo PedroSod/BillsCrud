@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
-import java.util.List;
 
 
 @Service
@@ -29,9 +28,7 @@ public class BillService {
     }
 
     public void update(Long id, Bill bill) {
-        if (!billRepository.existsById(id)) {
-            throw new RecordNotFoundException(id);
-        }
+        checkIfEntityExists(id);
         bill.setId(id);
         billRepository.save(bill);
     }
@@ -45,6 +42,13 @@ public class BillService {
     }
 
     public void delete(Long id) {
+        checkIfEntityExists(id);
         billRepository.deleteById(id);
+    }
+
+    private void checkIfEntityExists(Long id) {
+        if (!billRepository.existsById(id)) {
+            throw new RecordNotFoundException(id);
+        }
     }
 }

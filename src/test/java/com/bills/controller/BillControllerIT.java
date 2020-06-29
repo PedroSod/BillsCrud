@@ -6,7 +6,6 @@ import com.bills.exception.BillInterestRulesNotFoundException;
 import com.bills.exception.NoBIllsRecordedException;
 import com.bills.exception.RecordNotFoundException;
 import com.bills.model.Bill;
-import com.bills.service.BillInterestRulesService;
 import com.bills.service.BillService;
 import com.bills.util.BillConverter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -50,7 +50,7 @@ public class BillControllerIT {
 
     private static ObjectMapper mapper;
 
-    private final static Integer overDueDays = 1;
+    private final static Long overDueDays = 1l;
 
     private static final Long TEST_ID = 1l;
 
@@ -152,7 +152,7 @@ public class BillControllerIT {
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.errorCode").value(404))
                 .andExpect(jsonPath("$.error").value("NOT_FOUND"))
-                .andExpect(jsonPath("$.message").value("No record found for id : " + TEST_ID));
+                .andExpect(jsonPath("$.message").value("No entity with id " + TEST_ID + " exists!"));
     }
 
     @Test
@@ -181,7 +181,7 @@ public class BillControllerIT {
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.errorCode").value(404))
                 .andExpect(jsonPath("$.error").value("NOT_FOUND"))
-                .andExpect(jsonPath("$.message").value("No record found for id : " + TEST_ID));
+                .andExpect(jsonPath("$.message").value("No entity with id " + TEST_ID + " exists!"));
     }
 
     @Test

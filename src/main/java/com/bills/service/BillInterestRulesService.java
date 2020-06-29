@@ -14,7 +14,7 @@ public class BillInterestRulesService {
         this.billsInterestRulesRepository = billsInterestRulesRepository;
     }
 
-    public BillsInterestRules findBillsInterestRules(Integer overDueDays){
+    public BillsInterestRules findBillsInterestRules(Long overDueDays){
         return billsInterestRulesRepository.findByUnderDayLimitLessThanEqualAndOverDayLimitGreaterThanEqual(overDueDays, overDueDays)
                 .orElseThrow(() -> new BillInterestRulesNotFoundException());
     }

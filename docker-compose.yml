@@ -1,0 +1,14 @@
+version: "3"
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_DB=bills_to_pay
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  spring-boot-containers:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres

@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface BillsInterestRulesRepository extends CrudRepository<BillsInterestRules, Long> {
 
     Optional<BillsInterestRules>
-    findByUnderDayLimitLessThanEqualAndOverDayLimitGreaterThanEqual(Integer firstValue, Integer secondValue );
+    findByUnderDayLimitLessThanEqualAndOverDayLimitGreaterThanEqual(Long firstValue, Long secondValue );
 }

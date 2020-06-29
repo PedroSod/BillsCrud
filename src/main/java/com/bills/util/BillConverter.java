@@ -10,11 +10,13 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.Period;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 @Component
 public class BillConverter {
     private ModelMapper defaultModelMapper;
     private BillInterestRulesService billsInterestRulesService;
-    private final static Integer DEFAULT_OVER_DUE_DAYS = 0;
+    private final static Long DEFAULT_OVER_DUE_DAYS = 0l;
 
     public BillConverter(ModelMapper defaultModelMapper, BillInterestRulesService billsInterestRulesService) {
         this.defaultModelMapper = defaultModelMapper;
@@ -28,16 +30,15 @@ public class BillConverter {
         return bill;
     }
 
-    private Integer calcOverDueDays(LocalDate dueDate, LocalDate paymentDate) {
-        Integer overDueDays = DEFAULT_OVER_DUE_DAYS;
+    private Long calcOverDueDays(LocalDate dueDate, LocalDate paymentDate) {
+        Long overDueDays = DEFAULT_OVER_DUE_DAYS;
         if (paymentDate.isAfter(dueDate)) {
-            Period period = Period.between(dueDate, paymentDate);
-            overDueDays = period.getDays();
+            overDueDays = DAYS.between(dueDate, paymentDate);
         }
         return overDueDays;
     }
 
-    private Double calcCorrectedAmount(Double originalAmount, Integer overDueDays) {
+    private Double calcCorrectedAmount(Double originalAmount, Long overDueDays) {
         Double correctedAmount = originalAmount;
         if (hasOverDueDays(overDueDays)) {
             correctedAmount = calcFineBill(originalAmount, overDueDays);
@@ -45,20 +46,20 @@ public class BillConverter {
         return correctedAmount;
     }
 
-    private Double calcFineBill(Double originalAmount, Integer overDueDays) {
+    private Double calcFineBill(Double originalAmount, Long overDueDays) {
         Double correctedAmount = originalAmount;
         Double percentage = getTotalPercentage(overDueDays);
         correctedAmount += originalAmount * percentage;
         return correctedAmount;
     }
 
-    private Double getTotalPercentage(Integer overDueDays) {
+    private Double getTotalPercentage(Long overDueDays) {
         BillsInterestRules billsInterestRules = billsInterestRulesService.findBillsInterestRules(overDueDays);
         Double totalPercentage = convertPercentage(billsInterestRules.getFineBill()) + getInterestBillPercentage(overDueDays, billsInterestRules);
         return totalPercentage;
     }
 
-    private Double getInterestBillPercentage(Integer overDueDays, BillsInterestRules billsInterestRules) {
+    private Double getInterestBillPercentage(Long overDueDays, BillsInterestRules billsInterestRules) {
         Double interestPercentage = overDueDays * (convertPercentage(billsInterestRules.getInterestOnDayOverdue()));
         return interestPercentage;
     }
@@ -67,7 +68,7 @@ public class BillConverter {
         return value / 100;
     }
 
-    private boolean hasOverDueDays(Integer overDueDays) {
+    private boolean hasOverDueDays(Long overDueDays) {
         return overDueDays > 0;
     }
 }

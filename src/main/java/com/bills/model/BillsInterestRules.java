@@ -30,8 +30,8 @@ public class BillsInterestRules implements Serializable {
     private Double interestOnDayOverdue;
     @NotNull
     @Column(name = "under_day_limit")
-    private Integer underDayLimit;
+    private Long underDayLimit;
     @NotNull
     @Column(name = "over_day_limit")
-    private Integer overDayLimit;
+    private Long overDayLimit;
 }
