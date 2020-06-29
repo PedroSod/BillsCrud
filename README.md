@@ -1,5 +1,5 @@
 # BillsCrud
-O projeto é CRUD simples de contas a pagar, conforme a data de vencimento e data de pagamento é calculo uma mult em cima do valor original no momento da inserção.
+O projeto é um CRUD simples de contas a pagar, conforme a data de vencimento e data de pagamento é calculo uma multa em cima do valor original no momento da inserção. A regra utilizada para aplicação de dessa multa foi de juros simples.
 É uma API feita com Java 11 e Spring boot, foi utilizado PostgreSQL como banco de dados.
 - A regra de cálculo da multa é persistida no banco, através do Flyway, quando for rodada a API;
 - Foi configurado um swagger para melhor visualização da API;
